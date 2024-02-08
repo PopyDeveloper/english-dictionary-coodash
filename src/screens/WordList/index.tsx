@@ -14,5 +14,10 @@ export const WordList: FC = () => {
     setWords(keys);
   }, []);
 
-  return <List list={words} />;
+  return (
+    <List
+      list={words}
+      fallbackMessage="Erro ao carregar a lista de palavras."
+    />
+  );
 };

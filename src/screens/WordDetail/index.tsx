@@ -1,35 +1,57 @@
 import {RouteProp, useRoute} from '@react-navigation/native';
 import Details from 'components/Details';
 import NotFound from 'components/NotFound';
-import React, {FC, useEffect, useState} from 'react';
-import {useDispatch} from 'react-redux';
-import {addWord} from 'src/features/history/historySlice';
-import {getDetail} from 'src/sevices/api';
+import React, {FC, useEffect} from 'react';
+import {useDispatch, useSelector} from 'react-redux';
 import {WordDetailRoute} from 'src/types/routes';
+import {AppDispatch, RootState} from 'src/store';
+import {getList, setHistoricInFirestore} from 'src/features/history/actions';
+import {ActivityIndicator} from 'react-native';
+import {getFromServe} from 'src/features/detail/actions';
 import {TWord} from 'src/types/word';
+import {setDetail} from 'src/features/detail/detailSlice';
 
 export const WorldDetail: FC = () => {
   const route = useRoute<RouteProp<WordDetailRoute>>();
-  const dispatch = useDispatch();
-
-  const [data, setData] = useState<TWord[]>({} as TWord[]);
-
+  const dispatch = useDispatch<AppDispatch>();
+  const uid = useSelector((state: RootState) => state.auth.uid);
+  const {detailWord, loading} = useSelector((state: RootState) => state.detail);
+  const historic = useSelector((state: RootState) => state.history.list);
   const wordToSearch = route.params?.word;
 
   useEffect(() => {
-    dispatch(addWord(wordToSearch));
-  }, [wordToSearch, dispatch]);
+    dispatch(getList(uid));
+  }, [wordToSearch, dispatch, uid]);
 
   useEffect(() => {
-    const get = async () => {
-      const res = await getDetail(wordToSearch);
-      setData(res);
-    };
-    get();
-  }, [wordToSearch]);
+    const wordDetail = historic.find(word => word.word === wordToSearch);
 
-  if (!Array.isArray(data)) {
-    return <NotFound data={data} />;
+    if (!wordDetail) {
+      dispatch(getFromServe(wordToSearch));
+    } else {
+      dispatch(setDetail(wordDetail));
+    }
+  }, [dispatch]);
+
+  useEffect(() => {
+    dispatch(
+      setHistoricInFirestore({
+        uid,
+        data: detailWord?.word ? detailWord : {word: wordToSearch},
+      }),
+    );
+  }, [detailWord, uid, dispatch, wordToSearch]);
+
+  if (loading) {
+    return <ActivityIndicator />;
   }
-  return <Details {...data[0]} />;
+  return (
+    <>
+      {!detailWord?.meanings ? (
+        <NotFound wordNotFound={wordToSearch} />
+      ) : (
+        <Details {...(detailWord as TWord)} />
+      )}
+    </>
+  );
 };

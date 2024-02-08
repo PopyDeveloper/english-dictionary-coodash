@@ -4,7 +4,7 @@ import {Phonetics} from 'components/Phonetics';
 import React, {FC} from 'react';
 import {Text, View} from 'react-native';
 import {TWord} from 'src/types/word';
-import {ButtonFav} from 'components/ButtonFav';
+import {ButtonFav} from 'components/Buttons/ButtonFav';
 
 type Props = TWord;
 

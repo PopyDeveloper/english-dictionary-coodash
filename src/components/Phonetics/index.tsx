@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
+import Colors from 'src/contants/Colors';
 
 export type TPhonetics = {
   text: string;
@@ -21,10 +22,9 @@ export const Phonetics: FC<Props> = ({phoneticsData}) => {
 
   return (
     <View>
-      {phoneticsData.map(ph => (
-        <View key={JSON.stringify(ph)}>
+      {phoneticsData.map((ph, index) => (
+        <View key={index.toString()}>
           <Text style={S.text}>{ph.text}</Text>
-          {/* {ph.text && <Text style={S.text}>{ph.audio}</Text>} */}
         </View>
       ))}
     </View>
@@ -40,6 +40,6 @@ const S = StyleSheet.create({
   text: {
     fontSize: 24,
     fontWeight: '400',
-    color: '#111',
+    color: Colors.black,
   },
 });

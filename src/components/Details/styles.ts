@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import Colors from 'src/contants/Colors';
 
 const S = StyleSheet.create({
   container: {
@@ -14,7 +15,7 @@ const S = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     textAlign: 'center',
-    borderColor: '#111',
+    borderColor: Colors.black,
     borderWidth: 1,
     borderRadius: 10,
     marginVertical: 10,
@@ -23,7 +24,7 @@ const S = StyleSheet.create({
   text: {
     fontSize: 24,
     fontWeight: '400',
-    color: '#111',
+    color: Colors.black,
   },
 });
 

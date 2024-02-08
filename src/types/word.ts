@@ -11,6 +11,12 @@ export type TWord = {
   };
 };
 
+export type TWordNotFound = {
+  title: string;
+  message: string;
+  resolution: string;
+};
+
 export type TMeanings = {
   antonyms: string[];
   definitions: TDefinition[];

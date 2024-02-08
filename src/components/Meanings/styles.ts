@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import Colors from 'src/contants/Colors';
 
 const S = StyleSheet.create({
   container: {},
@@ -9,7 +10,7 @@ const S = StyleSheet.create({
   },
   text: {
     fontSize: 16,
-    color: '#333',
+    color: Colors.black,
   },
 });
 
