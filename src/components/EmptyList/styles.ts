@@ -8,21 +8,11 @@ const S = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 30,
   },
-  title: {
-    fontSize: 30,
-    fontWeight: '600',
-    marginBottom: 20,
-  },
   message: {
     fontSize: 18,
     textAlign: 'center',
     marginBottom: 20,
     color: Colors.black,
-  },
-  resolution: {
-    fontSize: 18,
-    textAlign: 'center',
-    color: Colors.grey,
   },
 });
 

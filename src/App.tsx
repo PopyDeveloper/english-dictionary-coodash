@@ -1,16 +1,33 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import Routes from './routes';
 
-import {store} from './store';
-import {Provider} from 'react-redux';
+import {AUTH_TOKEN} from './contants/StorageKeys';
+import {getItemStorage} from './utils/storage';
+import {setAuth} from './features/auth/authSlice';
+import {useDispatch} from 'react-redux';
+import {getColectionFirestore} from './sevices/firestore';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const verifyIsLogged = async () => {
+      const data = await getItemStorage(AUTH_TOKEN);
+      if (data) {
+        const auth = JSON.parse(data);
+        const {token, uid} = auth;
+        dispatch(setAuth({token, uid}));
+      }
+    };
+    getColectionFirestore();
+
+    verifyIsLogged();
+  }, [dispatch]);
+
   return (
     <SafeAreaProvider>
-      <Provider store={store}>
-        <Routes />
-      </Provider>
+      <Routes />
     </SafeAreaProvider>
   );
 };

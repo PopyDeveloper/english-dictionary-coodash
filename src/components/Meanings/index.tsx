@@ -14,8 +14,10 @@ const Meanings: FC<Props> = ({meaningsData}) => {
   return (
     <View style={S.container}>
       <Text style={S.title}>Meanings</Text>
-      {meaningsData[0]?.definitions?.map(item => (
-        <Text style={S.text}>{item.definition}</Text>
+      {meaningsData[0]?.definitions?.map((item, index) => (
+        <Text key={index.toString()} style={S.text}>
+          {item.definition}
+        </Text>
       ))}
     </View>
   );

@@ -1,8 +1,9 @@
 import {createSlice} from '@reduxjs/toolkit';
-import type {PayloadAction} from '@reduxjs/toolkit';
+import {getList, setHistoricInFirestore} from './actions';
+import {TWord} from 'src/types/word';
 
 export interface HistoryState {
-  list: string[];
+  list: TWord[];
 }
 
 const initialState: HistoryState = {
@@ -12,23 +13,23 @@ const initialState: HistoryState = {
 export const historySlice = createSlice({
   name: 'history',
   initialState,
-  reducers: {
-    addWord: (state, action: PayloadAction<string>) => {
-      const arr = state.list.filter(word => word !== action.payload);
-
-      arr.unshift(action.payload);
-      state.list = arr;
-    },
-    removeWord: (state, action: PayloadAction<string>) => {
-      const arr = state.list.filter(word => word !== action.payload);
-      state.list = arr;
-    },
-    clearHistory: state => {
-      state.list = [];
-    },
+  reducers: {},
+  extraReducers: builder => {
+    builder
+      .addCase(getList.fulfilled, (state, action) => {
+        if (action.payload.length > 0) {
+          state.list = action.payload;
+        }
+      })
+      .addCase(setHistoricInFirestore.pending, state => state)
+      .addCase(setHistoricInFirestore.fulfilled, (state, action) => {
+        if (action.payload) {
+          state.list = action.payload;
+        }
+      });
   },
 });
 
-export const {addWord, removeWord, clearHistory} = historySlice.actions;
+export const {} = historySlice.actions;
 
 export default historySlice.reducer;
