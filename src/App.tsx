@@ -6,7 +6,6 @@ import {AUTH_TOKEN} from './contants/StorageKeys';
 import {getItemStorage} from './utils/storage';
 import {setAuth} from './features/auth/authSlice';
 import {useDispatch} from 'react-redux';
-import {getColectionFirestore} from './sevices/firestore';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -20,7 +19,6 @@ const App = () => {
         dispatch(setAuth({token, uid}));
       }
     };
-    getColectionFirestore();
 
     verifyIsLogged();
   }, [dispatch]);

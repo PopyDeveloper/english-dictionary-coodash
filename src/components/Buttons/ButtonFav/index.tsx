@@ -16,14 +16,17 @@ export const ButtonFav: FC<Props> = ({word}) => {
   const listFavorites = useSelector((state: RootState) => state.favorites.list);
   const uid = useSelector((state: RootState) => state.auth.uid);
 
-  const hasFavorited = listFavorites.findIndex(i => i === word) > -1;
+  const hasFavorited = listFavorites?.findIndex(i => i === word) > -1;
 
   const toggleFav = () => {
     dispatch(toggleFavorite({uid, word}));
   };
 
   return (
-    <TouchableOpacity style={S.container} onPress={toggleFav}>
+    <TouchableOpacity
+      style={S.container}
+      onPress={toggleFav}
+      testID="fav-button">
       <Star fill={hasFavorited ? Colors.orange : Colors.white} />
     </TouchableOpacity>
   );

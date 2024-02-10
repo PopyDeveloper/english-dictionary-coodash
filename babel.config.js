@@ -1,7 +1,7 @@
 module.exports = function (api) {
   api.cache(true);
   return {
-    presets: ['module:@react-native/babel-preset'],
+    presets: ['module:@react-native/babel-preset', '@babel/preset-typescript'],
     plugins: [
       [
         'module-resolver',
@@ -11,6 +11,7 @@ module.exports = function (api) {
             components: './src/components',
             screens: './src/screens',
             services: './src/sevices',
+            features: './src/features',
             src: './src',
           },
         },

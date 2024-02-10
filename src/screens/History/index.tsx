@@ -9,8 +9,9 @@ export const History: FC = () => {
   const historyList = useSelector((state: RootState) => state.history.list);
   const uid = useSelector((state: RootState) => state.auth.uid);
   const dispatch = useDispatch<AppDispatch>();
-  const listToRender = historyList.map(wordData => wordData.word);
+  const listToRender = historyList?.map(wordData => wordData.word);
 
+  console.info(listToRender);
   useEffect(() => {
     dispatch(getList(uid));
   }, [dispatch, uid]);

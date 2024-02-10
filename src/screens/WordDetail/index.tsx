@@ -14,10 +14,11 @@ import {setDetail} from 'src/features/detail/detailSlice';
 export const WorldDetail: FC = () => {
   const route = useRoute<RouteProp<WordDetailRoute>>();
   const dispatch = useDispatch<AppDispatch>();
+  const wordToSearch = route.params?.word;
+
   const uid = useSelector((state: RootState) => state.auth.uid);
   const {detailWord, loading} = useSelector((state: RootState) => state.detail);
   const historic = useSelector((state: RootState) => state.history.list);
-  const wordToSearch = route.params?.word;
 
   useEffect(() => {
     dispatch(getList(uid));
@@ -25,13 +26,13 @@ export const WorldDetail: FC = () => {
 
   useEffect(() => {
     const wordDetail = historic.find(word => word.word === wordToSearch);
-
-    if (!wordDetail) {
+    if (!wordDetail?.meanings) {
+      console.info('get');
       dispatch(getFromServe(wordToSearch));
     } else {
       dispatch(setDetail(wordDetail));
     }
-  }, [dispatch]);
+  }, [dispatch, wordToSearch]);
 
   useEffect(() => {
     dispatch(
@@ -40,7 +41,7 @@ export const WorldDetail: FC = () => {
         data: detailWord?.word ? detailWord : {word: wordToSearch},
       }),
     );
-  }, [detailWord, uid, dispatch, wordToSearch]);
+  }, [wordToSearch]);
 
   if (loading) {
     return <ActivityIndicator />;
