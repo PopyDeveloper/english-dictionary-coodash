@@ -9,7 +9,6 @@ export const getList = createAsyncThunk(
   async (uid: string) => {
     const q = query(collection(db, uid));
 
-    console.info(uid);
     const docSnap = await getDocs(q);
     let list: TWord[] = [];
     if (!docSnap.empty) {

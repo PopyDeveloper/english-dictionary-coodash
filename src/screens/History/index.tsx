@@ -11,7 +11,6 @@ export const History: FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const listToRender = historyList?.map(wordData => wordData.word);
 
-  console.info(listToRender);
   useEffect(() => {
     dispatch(getList(uid));
   }, [dispatch, uid]);

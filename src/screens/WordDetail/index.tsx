@@ -27,7 +27,6 @@ export const WorldDetail: FC = () => {
   useEffect(() => {
     const wordDetail = historic.find(word => word.word === wordToSearch);
     if (!wordDetail?.meanings) {
-      console.info('get');
       dispatch(getFromServe(wordToSearch));
     } else {
       dispatch(setDetail(wordDetail));
