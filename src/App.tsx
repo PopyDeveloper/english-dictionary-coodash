@@ -6,6 +6,7 @@ import {AUTH_TOKEN} from './contants/StorageKeys';
 import {getItemStorage} from './utils/storage';
 import {setAuth} from './features/auth/authSlice';
 import {useDispatch} from 'react-redux';
+import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,9 @@ const App = () => {
 
   return (
     <SafeAreaProvider>
-      <Routes />
+      <GestureHandlerRootView style={{flex: 1}}>
+        <Routes />
+      </GestureHandlerRootView>
     </SafeAreaProvider>
   );
 };
