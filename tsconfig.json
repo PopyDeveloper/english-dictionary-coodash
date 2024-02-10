@@ -13,6 +13,9 @@
       "services/*": [
         "src/services/*"
       ],
+      "features/*": [
+        "src/features/*"
+      ],
       "src/*": [
         "src/*"
       ]

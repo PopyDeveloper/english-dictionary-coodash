@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {Home} from 'screens/Home';
@@ -11,6 +11,8 @@ import {RootState} from 'src/store';
 import {Button} from 'components/Buttons/Button/Button';
 import {removeToken} from 'src/features/auth/authSlice';
 import Colors from 'src/contants/Colors';
+import {clearHistoric} from 'features/history/historySlice';
+import {clearFavorites} from 'features/favorites/favoritesSlice';
 
 export default function Routes() {
   const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -21,7 +23,11 @@ export default function Routes() {
     <Button
       label="Sair"
       color={Colors.secondary}
-      onPress={() => dispatch(removeToken())}
+      onPress={() => {
+        dispatch(clearFavorites());
+        dispatch(clearHistoric());
+        dispatch(removeToken());
+      }}
     />
   );
 

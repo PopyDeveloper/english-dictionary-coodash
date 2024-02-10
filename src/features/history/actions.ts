@@ -8,6 +8,8 @@ export const getList = createAsyncThunk(
   'history/getListHistoryByUid',
   async (uid: string) => {
     const q = query(collection(db, uid));
+
+    console.info(uid);
     const docSnap = await getDocs(q);
     let list: TWord[] = [];
     if (!docSnap.empty) {

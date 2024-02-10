@@ -13,7 +13,11 @@ const initialState: HistoryState = {
 export const historySlice = createSlice({
   name: 'history',
   initialState,
-  reducers: {},
+  reducers: {
+    clearHistoric: state => {
+      state.list = [];
+    },
+  },
   extraReducers: builder => {
     builder
       .addCase(getList.fulfilled, (state, action) => {
@@ -30,6 +34,6 @@ export const historySlice = createSlice({
   },
 });
 
-export const {} = historySlice.actions;
+export const {clearHistoric} = historySlice.actions;
 
 export default historySlice.reducer;

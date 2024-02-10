@@ -4,6 +4,7 @@ import Svg, {Path} from 'react-native-svg';
 const Star = (props: any) => {
   return (
     <Svg
+      testID="star-comp"
       width="30px"
       height="30px"
       viewBox="0 0 24 24"
