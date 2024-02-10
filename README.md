@@ -22,6 +22,8 @@ yarn start
 - Redux Toolkit
 - Async Storage
 - Firebase (Firestore , Auth)
+- React Native Testing Library
+- Jest
 
 ## Passos para executar a aplicação
 
